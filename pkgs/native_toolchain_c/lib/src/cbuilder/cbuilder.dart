@@ -168,6 +168,7 @@ class CBuilder extends CTool implements Builder {
         sources: sources,
         includes: includes,
         frameworks: frameworks,
+        links: links,
         libraries: libraries,
         libraryDirectories: libraryDirectories,
         dynamicLibrary:
