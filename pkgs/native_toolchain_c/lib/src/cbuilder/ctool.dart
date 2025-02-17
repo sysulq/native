@@ -63,6 +63,8 @@ abstract class CTool {
   /// The default [frameworks].
   static const List<String> defaultFrameworks = ['Foundation'];
 
+  final List<String> links;
+
   /// Libraries to link to.
   ///
   /// In addition to the system default directories, libraries will be searched
@@ -155,6 +157,7 @@ abstract class CTool {
     required this.sources,
     required this.includes,
     required this.frameworks,
+    required this.links,
     required this.libraries,
     required this.libraryDirectories,
     required this.installName,

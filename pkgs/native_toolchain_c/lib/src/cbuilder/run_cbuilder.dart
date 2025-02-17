@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
 import 'dart:math';
 
 import 'package:logging/logging.dart';
@@ -29,6 +28,7 @@ class RunCBuilder {
   final List<Uri> includes;
   final List<String> frameworks;
   final List<String> libraries;
+  final List<String> links;
   final List<Uri> libraryDirectories;
   final Uri? executable;
   final Uri? dynamicLibrary;
@@ -58,6 +58,7 @@ class RunCBuilder {
     this.sources = const [],
     this.includes = const [],
     required this.frameworks,
+    this.links = const [],
     this.libraries = const [],
     this.libraryDirectories = const [],
     this.executable,
@@ -349,8 +350,6 @@ class RunCBuilder {
       archiver_ = await archiver();
     }
 
-    final suffix = Platform.isWindows ? 'dll' : 'lib';
-
     final result = await runProcess(
       executable: tool.uri,
       arguments: [
@@ -369,6 +368,7 @@ class RunCBuilder {
         ] else if (dynamicLibrary != null) ...[
           ...sources.map((e) => e.toFilePath()),
           '/link',
+          for (final link in links) '$link.dll',
           '/DLL',
           '/out:${outDir.resolveUri(dynamicLibrary!).toFilePath()}',
         ] else if (staticLibrary != null) ...[
@@ -378,7 +378,7 @@ class RunCBuilder {
         if (executable != null || dynamicLibrary != null) ...[
           for (final directory in libraryDirectories)
             '/LIBPATH:${directory.toFilePath()}',
-          for (final library in libraries) '$library.$suffix',
+          for (final library in libraries) '$library.lib',
         ],
       ],
       workingDirectory: outDir,

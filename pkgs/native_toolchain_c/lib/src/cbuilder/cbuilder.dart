@@ -56,6 +56,7 @@ class CBuilder extends CTool implements Builder {
     super.sources = const [],
     super.includes = const [],
     super.frameworks = CTool.defaultFrameworks,
+    super.links = const [],
     super.libraries = const [],
     super.libraryDirectories = CTool.defaultLibraryDirectories,
     @Deprecated(
@@ -82,6 +83,7 @@ class CBuilder extends CTool implements Builder {
     super.sources = const [],
     super.includes = const [],
     super.frameworks = CTool.defaultFrameworks,
+    super.links = const [],
     super.libraries = const [],
     super.libraryDirectories = CTool.defaultLibraryDirectories,
     @Deprecated(
