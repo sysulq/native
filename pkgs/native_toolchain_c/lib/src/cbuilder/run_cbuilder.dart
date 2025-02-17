@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:logging/logging.dart';
@@ -348,7 +349,7 @@ class RunCBuilder {
       archiver_ = await archiver();
     }
 
-    final suffix = Platform.isWindows ? '.dll' : '.lib';
+    final suffix = Platform.isWindows ? 'dll' : 'lib';
 
     final result = await runProcess(
       executable: tool.uri,
