@@ -348,6 +348,8 @@ class RunCBuilder {
       archiver_ = await archiver();
     }
 
+    final suffix = Platform.isWindows ? '.dll' : '.lib';
+
     final result = await runProcess(
       executable: tool.uri,
       arguments: [
@@ -375,7 +377,7 @@ class RunCBuilder {
         if (executable != null || dynamicLibrary != null) ...[
           for (final directory in libraryDirectories)
             '/LIBPATH:${directory.toFilePath()}',
-          for (final library in libraries) '$library.lib',
+          for (final library in libraries) '$library.$suffix',
         ],
       ],
       workingDirectory: outDir,
